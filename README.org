@@ -1,4 +1,4 @@
-* noa2co2
+* noa₂co₂
 
 There is no machine-readable data file available that gives daily CO₂ readings.  But there should be!  And this makes one.
 

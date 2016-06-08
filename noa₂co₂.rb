@@ -5,7 +5,7 @@ require 'csv'
 require 'nokogiri'
 require 'open-uri'
 
-csv_file = "noaa-co2.csv"
+csv_file = "noaa-co₂.csv"
 
 csv_data = CSV.read(csv_file)
 
