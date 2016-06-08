@@ -1,6 +1,26 @@
 * noa2co2
 
-Add notes soon.
+There is no machine-readable data file available that gives daily CO₂ readings.  But there should be!  And this makes one.
+
+It scrapes the manually-entered data out of [[http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html][Recent Daily Average Mauna Loa CO₂]] that is maintained by the [[http://www.esrl.noaa.gov/][Earth System Research Laboratory]] (part of the US government's National Oceanic & Atmospheric Administration).  That data is added to a CSV file.
+
+* How to use it
+
+This requires [[https://www.ruby-lang.org/en/][Ruby]] and the [[http://bundler.io/][Bundler]] gem.
+
+To install:
+
+#+BEGIN_SRC shell
+git clone git@github.com:wdenton/noa2co2.git
+cd noa2co2/
+bundle install
+#+END_SRC
+
+To use:
+
+#+BEGIN_SRC shell
+./noa2co2.rb
+#+END_SRC
 
 * License
 
