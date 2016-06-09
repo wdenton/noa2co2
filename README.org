@@ -19,7 +19,7 @@ bundle install
 To use:
 
 #+BEGIN_SRC shell
-./noaub₂co₂.rb
+./noa₂co₂.rb
 #+END_SRC
 
 * License
