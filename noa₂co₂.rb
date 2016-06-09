@@ -5,7 +5,7 @@ require 'csv'
 require 'nokogiri'
 require 'open-uri'
 
-csv_file = "noaa-co₂.csv"
+csv_file = "mauna-loa-co₂.csv"
 
 csv_data = CSV.read(csv_file)
 
@@ -25,6 +25,6 @@ doc.css('//.colored_box/table/tr').each do |t|
   csv_data << [date, ppm]
 end
 
-csv_data.each do |date, ppm|
+csv_data.sort{ |a, b| a[0] <=> b[0] }.each do |date, ppm|
   puts [date, ppm].to_csv
 end
