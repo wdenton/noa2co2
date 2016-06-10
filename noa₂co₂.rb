@@ -6,10 +6,14 @@ require 'nokogiri'
 require 'open-uri'
 
 csv_file = "mauna-loa-co₂.csv"
+mauna_loa_uri = "http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html"
 
 csv_data = CSV.read(csv_file)
 
-doc = Nokogiri::HTML(open("http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html"))
+doc = Nokogiri::HTML(open(mauna_loa_uri))
+
+# TODO: Fail better in case the URI can't be opened.
+
 doc.css('//.colored_box/table/tr').each do |t|
   raw_date = t.css('td')[0].text.gsub(" ", '').strip.gsub(":", '') # There's an &nbsp; in the HTML
   current_year = Time.now().strftime("%Y")
