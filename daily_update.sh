@@ -6,3 +6,4 @@ ruby ./noa₂co₂.rb > tmp.csv
 mv tmp.csv $CSV_FILE
 git add $CSV_FILE
 git commit -m "Daily update"
+git push
