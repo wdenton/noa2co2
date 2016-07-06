@@ -2,6 +2,7 @@
 # coding: utf-8
 
 require 'csv'
+require 'json'
 require 'nokogiri'
 require 'open-uri'
 
@@ -29,6 +30,14 @@ doc.css('//.colored_box/table/tr').each do |t|
   csv_data << [date, ppm]
 end
 
+# CSV of all data
 csv_data.sort{ |a, b| a[0] <=> b[0] }.each do |date, ppm|
   puts [date, ppm].to_csv
 end
+
+# JSON of the latest date
+latest_data = csv_data.sort.last
+latest_data_hash = { latest_data[0] => latest_data[1] }
+f = File.new("mauna-loa-co₂-latest.json", "w")
+f.write latest_data_hash.to_json
+f.close
