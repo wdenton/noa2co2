@@ -7,6 +7,8 @@ require 'nokogiri'
 require 'open-uri'
 
 csv_file = "mauna-loa-co₂.csv"
+json_file = "mauna-loa-co₂-latest.json"
+
 mauna_loa_uri = "http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html"
 
 csv_data = CSV.read(csv_file)
@@ -32,9 +34,11 @@ end
 
 csv_data = csv_data.sort # No special sorting needed, it seems, it just works.
 
-# CSV of all data
-csv_data.each do |date, ppm|
-  puts [date, ppm].to_csv
+# Update CSV with all the data
+File.open(csv_file, "w") do |file|
+  csv_data.each do |row|
+    file.write row.to_csv
+  end
 end
 
 # JSON of the last numerical reading
@@ -42,11 +46,7 @@ index = - 1
 while csv_data[index][1] == "NA"
   index = index - 1
 end
-latest_data_hash = {
-  "date" => csv_data[index][0],
-  "co2" =>  csv_data[index][1]
-}
-
-f = File.new("mauna-loa-co₂-latest.json", "w")
-f.write latest_data_hash.to_json
-f.close
+latest_data_hash = { "date" => csv_data[index][0], "co2" =>  csv_data[index][1] }
+File.open(json_file, "w") do |file|
+  file.write latest_data_hash.to_json
+end
