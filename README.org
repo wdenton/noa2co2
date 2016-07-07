@@ -22,6 +22,12 @@ To use:
 ./noa₂co₂.rb
 #+END_SRC
 
+To run from crontab with RVM (change the directory as needed):
+
+#+BEGIN_EXAMPLE
+30 5-12 * * * cd ~/noa2co2/; ./rvm_noa₂co₂.sh
+#+END_EXAMPLE
+
 * License
 
 GPL v3.
