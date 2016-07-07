@@ -32,21 +32,24 @@ doc.css('//.colored_box/table/tr').each do |t|
   csv_data << [date, ppm]
 end
 
-csv_data = csv_data.sort # No special sorting needed, it seems, it just works.
+# If updates are done daily, this is unncessary. In fact, since it's
+# dates and they can be handled as dates in any analysis, it's really
+# unnecessary, but just to keep things tidy and human-readable in all
+# cases, let's sort. No special sorting needed, it just works.
+csv_data = csv_data.sort
 
-# Update CSV with all the data
 File.open(csv_file, "w") do |file|
   csv_data.each do |row|
     file.write row.to_csv
   end
 end
 
-# JSON of the last numerical reading
+# JSON is just the last numerical reading
 index = - 1
 while csv_data[index][1] == "NA"
   index = index - 1
 end
-latest_data_hash = { "date" => csv_data[index][0], "co2" =>  csv_data[index][1] }
+latest_data = { "date" => csv_data[index][0], "co2" =>  csv_data[index][1] }
 File.open(json_file, "w") do |file|
-  file.write latest_data_hash.to_json
+  file.write latest_data.to_json
 end
