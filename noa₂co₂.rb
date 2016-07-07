@@ -37,7 +37,7 @@ end
 
 # JSON of the latest date
 latest_data = csv_data.sort.last
-latest_data_hash = { latest_data[0] => latest_data[1] }
+latest_data_hash = { "date" => latest_data[0], "co2" => latest_data[1] }
 f = File.new("mauna-loa-co₂-latest.json", "w")
 f.write latest_data_hash.to_json
 f.close
