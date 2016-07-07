@@ -30,14 +30,23 @@ doc.css('//.colored_box/table/tr').each do |t|
   csv_data << [date, ppm]
 end
 
+csv_data = csv_data.sort # No special sorting needed, it seems, it just works.
+
 # CSV of all data
-csv_data.sort{ |a, b| a[0] <=> b[0] }.each do |date, ppm|
+csv_data.each do |date, ppm|
   puts [date, ppm].to_csv
 end
 
-# JSON of the latest date
-latest_data = csv_data.sort.last
-latest_data_hash = { "date" => latest_data[0], "co2" => latest_data[1] }
+# JSON of the last numerical reading
+index = - 1
+while csv_data[index][1] == "NA"
+  index = index - 1
+end
+latest_data_hash = {
+  "date" => csv_data[index][0],
+  "co2" =>  csv_data[index][1]
+}
+
 f = File.new("mauna-loa-co₂-latest.json", "w")
 f.write latest_data_hash.to_json
 f.close
