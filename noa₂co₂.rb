@@ -6,8 +6,8 @@ require 'json'
 require 'nokogiri'
 require 'open-uri'
 
-csv_file = "mauna-loa-co₂.csv"
-json_file = "mauna-loa-co₂-latest.json"
+csv_file = "mauna-loa.csv"
+json_file = "mauna-loa-latest.json"
 
 mauna_loa_uri = "http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html"
 
