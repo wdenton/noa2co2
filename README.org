@@ -1,8 +1,8 @@
 * noa₂co₂
 
-There is no machine-readable data file available that gives daily atmospheric CO₂ readings.  Until the monitoring agencies and researchers make one, this fills in.
+There is as yet no machine-readable data file available that gives daily atmospheric CO₂ readings from any of the many monitoring stations around the globe.  Until there is, this fills in.
 
-It scrapes the manually-entered data out of [[http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html][Recent Daily Average Mauna Loa CO₂]] that is maintained by the [[http://www.esrl.noaa.gov/][Earth System Research Laboratory]] (part of the US government's National Oceanic & Atmospheric Administration).  That data is added to a CSV file.
+It scrapes the manually-entered data out of [[http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html][Recent Daily Average Mauna Loa CO₂]] that is maintained by the [[http://www.esrl.noaa.gov/][Earth System Research Laboratory]] (part of the US government's National Oceanic & Atmospheric Administration).  That data is added to a CSV file (of all recent readings) and a JSON file (of just the last valid reading, ignoring any NAs).
 
 * How to use it
 
@@ -22,12 +22,17 @@ To use:
 ./noa₂co₂.rb
 #+END_SRC
 
-To run from crontab with RVM (change the directory as needed):
+To run from crontab with RVM you need a special wrapper script (change the directory as needed):
 
 #+BEGIN_EXAMPLE
 30 5-12 * * * cd ~/noa2co2/; ./rvm_noa₂co₂.sh
 #+END_EXAMPLE
 
+* Direct links to the data
+
++ [[https://raw.githubusercontent.com/wdenton/noa2co2/master/mauna-loa.csv][CSV of all recent data]]
++ [[https://raw.githubusercontent.com/wdenton/noa2co2/master/mauna-loa-latest.json][JSON file of just the last known reading]]
+
 * License
 
-GPL v3.
+GPL v3.  See COPYING.
