@@ -25,7 +25,7 @@ doc.css('//.colored_box/table/tr').each do |t|
   next if csv_data.flatten.include?(date)
 
   raw_ppm = t.css('td')[1].text.strip.gsub(' ppm', '')
-  ppm = if /unavailable/ =~ raw_ppm
+  ppm = if /unavailable/i =~ raw_ppm
         then 'NA'
         else raw_ppm
         end
