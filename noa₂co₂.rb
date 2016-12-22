@@ -9,7 +9,7 @@ require 'open-uri'
 csv_file = 'mauna-loa.csv'
 json_file = 'mauna-loa-latest.json'
 
-mauna_loa_uri = 'http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html'
+mauna_loa_uri = 'https://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html'
 
 csv_data = CSV.read(csv_file)
 
