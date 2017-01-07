@@ -20,8 +20,16 @@ doc = Nokogiri::HTML(open(mauna_loa_uri))
 doc.css("//.colored_box/table/tr").each do |t|
   raw_date = t.css("td")[0].text.delete(" ").strip.delete(":")
   # That's an &nbsp; ... it's in the HTML but we don't want it.
-  current_year = Time.now.strftime("%Y")
-  date = Date.parse(raw_date + " " + current_year).to_s
+  year = Time.now.strftime("%Y")
+  date = Date.parse(raw_date + " " + year)
+  if date > Date.today
+    # If we see just "December 30" in early January of 2017,
+    # we need to subtract a year so December 30 is in 2016.
+    # Need to convert year to an integer to subtract 1, then
+    # back to a string.
+    date = Date.parse(raw_date + " " + (year.to_i - 1).to_s)
+  end
+  date = date.to_s
   next if csv_data.flatten.include?(date)
 
   raw_ppm = t.css("td")[1].text.strip.gsub(" ppm", "")
