@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# coding: utf-8
+# frozen_string_literal: true
 
 require "csv"
 require "json"
@@ -13,7 +13,7 @@ mauna_loa_uri = "https://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html"
 
 csv_data = CSV.read(csv_file)
 
-doc = Nokogiri::HTML(open(mauna_loa_uri))
+doc = Nokogiri::HTML(URI.open(mauna_loa_uri))
 
 # TODO: Fail better in case the URI can't be opened.
 
@@ -21,13 +21,13 @@ doc.css("//.colored_box/table/tr").each do |t|
   raw_date = t.css("td")[0].text.delete(" ").strip.delete(":")
   # That's an &nbsp; ... it's in the HTML but we don't want it.
   year = Time.now.strftime("%Y")
-  date = Date.parse(raw_date + " " + year)
+  date = Date.parse("#{raw_date} #{year}")
   if date > Date.today
     # If we see just "December 30" in early January of 2017,
     # we need to subtract a year so December 30 is in 2016.
     # Need to convert year to an integer to subtract 1, then
     # back to a string.
-    date = Date.parse(raw_date + " " + (year.to_i - 1).to_s)
+    date = Date.parse("#{raw_date} #{year.to_i - 1}")
   end
   date = date.to_s
   next if csv_data.flatten.include?(date)
@@ -56,10 +56,7 @@ end
 index = -1
 index -= 1 while csv_data[index][1] == "NA"
 
-latest_data = {
-  "date" => csv_data[index][0],
-  "co2"  => csv_data[index][1]
-}
+latest_data = { "date" => csv_data[index][0], "co2" => csv_data[index][1] }
 
 File.open(json_file, "w") do |file|
   file.write latest_data.to_json
