@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 require "csv"
+require "http"
 require "json"
 require "nokogiri"
-require "open-uri"
 
 csv_file = "mauna-loa.csv"
 json_file = "mauna-loa-latest.json"
@@ -13,7 +13,8 @@ mauna_loa_uri = "https://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html"
 
 csv_data = CSV.read(csv_file)
 
-doc = Nokogiri::HTML(URI.open(mauna_loa_uri))
+mauna_loa_html = HTTP.get(mauna_loa_uri)
+doc = Nokogiri::HTML(mauna_loa_html.to_s)
 
 # TODO: Fail better in case the URI can't be opened.
 
