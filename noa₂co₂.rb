@@ -37,7 +37,8 @@ doc.css("//.colored_box/table/tr").each do |t|
   raw_ppm = t.css("td")[1].text.strip.gsub(" ppm", "")
   ppm = if /unavailable/i =~ raw_ppm
         then "NA"
-        else raw_ppm
+        else
+          raw_ppm
         end
   csv_data << [date, ppm]
 end
