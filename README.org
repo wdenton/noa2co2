@@ -2,7 +2,7 @@
 
 There is as yet no machine-readable data file available that gives daily atmospheric CO₂ readings from any of the many monitoring stations around the globe.  Until there is, this fills in.
 
-It scrapes the manually-entered data out of [[http://www.esrl.noaa.gov/gmd/ccgg/trends/monthly.html][Recent Daily Average Mauna Loa CO₂]] that is maintained by the [[http://www.esrl.noaa.gov/][Earth System Research Laboratory]] (part of the US government's National Oceanic & Atmospheric Administration).  That data is added to a CSV file (of all recent readings) and a JSON file (of just the last valid reading, ignoring any NAs).
+It scrapes the manually-entered data out of [[https://gml.noaa.gov/ccgg/trends/monthly.html][Recent Daily Average Mauna Loa CO₂]] that is maintained by the [[http://www.esrl.noaa.gov/][Earth System Research Laboratory]] (part of the US government's National Oceanic & Atmospheric Administration).  That data is added to a CSV file (of all recent readings) and a JSON file (of just the last valid reading, ignoring any NAs).
 
 * How to use it
 
@@ -10,23 +10,29 @@ This requires [[https://www.ruby-lang.org/en/][Ruby]] and the [[http://bundler.i
 
 To install:
 
-#+BEGIN_SRC shell
+#+begin_src shell
 git clone git@github.com:wdenton/noa2co2.git
 cd noa2co2/
 bundle install
-#+END_SRC
+#+end_src
 
 To use:
 
-#+BEGIN_SRC shell
+#+begin_src shell
 ./noa₂co₂.rb
-#+END_SRC
+#+end_src
 
-To run from crontab with RVM you need a special wrapper script (change the directory as needed):
+To run from crontab with [[https://rvm.io/][RVM]] you need a special wrapper script (change the directory as needed):
 
-#+BEGIN_EXAMPLE
-30 5-12 * * * cd ~/noa2co2/; ./rvm_noa₂co₂.sh
-#+END_EXAMPLE
+#+begin_example
+30 9-11 * * * cd ~/noa2co2/; ./rvm_noa₂co₂.sh
+#+end_example
+
+I use [[https://github.com/rbenv/rbenv][rbenv]] (installed with my [[https://github.com/wdenton/conforguration][Conforguration]] package) and use this for the cron job; sourcing ~.bashrc~ sets up the environment:
+
+#+begin_example
+30 9-11 * * *  source ~/.bashrc; cd ~/noa2co2/; ./noa₂co₂.rb; ./update_github.sh
+#+end_example
 
 * Direct links to the data
 
