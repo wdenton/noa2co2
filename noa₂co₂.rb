@@ -60,6 +60,4 @@ index -= 1 while csv_data[index][1] == "NA"
 
 latest_data = { "date" => csv_data[index][0], "co2" => csv_data[index][1] }
 
-File.open(json_file, "w") do |file|
-  file.write latest_data.to_json
-end
+File.write(json_file, latest_data.to_json)
