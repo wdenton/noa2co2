@@ -32,14 +32,27 @@ doc.css("//.colored_box/table/tr").each do |t|
     date = Date.parse("#{raw_date} #{year.to_i - 1}")
   end
   date = date.to_s
-  next if csv_data.flatten.include?(date)
+  # next if csv_data.flatten.include?(date)
 
   raw_ppm = t.css("td")[1].text.strip.gsub(" ppm", "")
+
   ppm = if /unavailable/i =~ raw_ppm
         then "NA"
         else
           raw_ppm
         end
+
+  # It happens that data for a day is corrected later.
+  # Sometimes a number is changed, and sometimes an NA
+  # is corrected to a number.
+  # The easiest way to handle this is that if the data exists
+  # in the data then throw it out and use what is in the table.
+  date_index = csv_data.index { |x| x[0] == date }
+  csv_data.delete_at(date_index) if date_index
+  # This was to delete a date's data only if it used to say NA
+  # but now does not say NA.
+  # && csv_data.at(date_index)[1] == "NA" && raw_ppm != "NA"
+
   csv_data << [date, ppm]
 end
 
