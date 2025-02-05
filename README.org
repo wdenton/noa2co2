@@ -1,4 +1,5 @@
-* noa₂co₂
+#+title: noa₂co₂
+#+author: William Denton
 
 There is as yet no machine-readable data file available that gives daily atmospheric CO₂ readings from any of the many monitoring stations around the globe.  Until there is, this fills in.
 
@@ -8,10 +9,11 @@ It scrapes the manually-entered data out of [[https://gml.noaa.gov/ccgg/trends/m
 
 This requires [[https://www.ruby-lang.org/en/][Ruby]] and the [[http://bundler.io/][Bundler]] gem.
 
-To install:
+To install from Codeberg:
 
 #+begin_src shell
-git clone git@github.com:wdenton/noa2co2.git
+git clone git@codeberg.org:wdenton/noa2co2.git
+# or git clone https://codeberg.org/wdenton/noa2co2.git
 cd noa2co2/
 bundle install
 #+end_src
@@ -22,16 +24,10 @@ To use:
 ./noa₂co₂.rb
 #+end_src
 
-To run from crontab with [[https://rvm.io/][RVM]] you need a special wrapper script (change the directory as needed):
-
-#+begin_example
-30 9-11 * * * cd ~/noa2co2/; ./rvm_noa₂co₂.sh
-#+end_example
-
 I use [[https://github.com/rbenv/rbenv][rbenv]] (installed with my [[https://github.com/wdenton/conforguration][Conforguration]] package) and use this for the cron job; sourcing ~.bashrc~ sets up the environment:
 
 #+begin_example
-30 9-11 * * *  source ~/.bashrc; cd ~/noa2co2/; ./noa₂co₂.rb; ./update_github.sh
+30 9-11 * * *  source ~/.bashrc; cd ~/noa2co2/; ./noa₂co₂.rb; ./update_repo.sh
 #+end_example
 
 * Direct links to the data
